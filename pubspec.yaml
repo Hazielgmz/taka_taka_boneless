@@ -1,0 +1,57 @@
+name: taka_taka_boneless
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 5.0.0
+  flutter_launcher_icons: 0.13.1
+  flutter_native_splash: 2.4.4
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icono.png"
+  adaptive_icon_background: "#e7292a"
+  adaptive_icon_foreground: "assets/icono.png"
+  min_sdk_android: 21
+
+  web:
+    generate: true
+    image_path: "assets/icono.png"
+
+  windows:
+    generate: true
+    image_path: "assets/icono.png"
+  remove_alpha_ios: true
+
+flutter_native_splash:
+  color: "#e7292a"           
+  image: assets/icono.png     
+  android_gravity: center    # centra el logo
+  ios_content_mode: scaleAspectFit  # mantiene proporción completa
+  web_image_mode: center
+
+  android_12:
+    android_gravity: center
+    color: "#e7292a"    
+    image: assets/icono.png
+    
+  android: true
+  ios: true
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
