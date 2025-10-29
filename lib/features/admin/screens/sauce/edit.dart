@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:taka_taka_boneless/widgets/appbar.dart' as custom;
 
-class CategoryCreateScreen extends StatefulWidget {
-  const CategoryCreateScreen({super.key});
+class SauceEditScreen extends StatefulWidget {
+  const SauceEditScreen({super.key, required this.sauce});
+
+  final Map<String, dynamic> sauce;
 
   @override
-  State<CategoryCreateScreen> createState() => _CategoryCreateScreenState();
+  State<SauceEditScreen> createState() => _SauceEditScreenState();
 }
 
-class _CategoryCreateScreenState extends State<CategoryCreateScreen> {
+class _SauceEditScreenState extends State<SauceEditScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
+  late TextEditingController _nameController;
+  late String _status;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.sauce['name']);
+    _status = widget.sauce['status'] ?? 'Activo';
+  }
 
   @override
   void dispose() {
@@ -28,7 +38,7 @@ class _CategoryCreateScreenState extends State<CategoryCreateScreen> {
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            custom.AppBar(title: 'Agregar categoría', showBack: true),
+            custom.AppBar(title: 'Editar salsa', showBack: true),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(20),
@@ -38,7 +48,7 @@ class _CategoryCreateScreenState extends State<CategoryCreateScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Información de la categoría',
+                        'Información de la salsa',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -59,7 +69,7 @@ class _CategoryCreateScreenState extends State<CategoryCreateScreen> {
                       TextFormField(
                         controller: _nameController,
                         decoration: InputDecoration(
-                          hintText: 'Ej: Boneless',
+                          hintText: 'Ej: BBQ',
                           hintStyle: const TextStyle(
                             fontSize: 17,
                             color: Colors.black38,
@@ -110,6 +120,53 @@ class _CategoryCreateScreenState extends State<CategoryCreateScreen> {
                           return null;
                         },
                       ),
+                      const SizedBox(height: 16),
+
+                      // Estado
+                      const Text(
+                        'Estado',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      DropdownButtonFormField<String>(
+                        value: _status,
+                        items: const [
+                          DropdownMenuItem(value: 'Activo', child: Text('Activo')),
+                          DropdownMenuItem(value: 'Inactivo', child: Text('Inactivo')),
+                        ],
+                        onChanged: (v) => setState(() => _status = v ?? 'Activo'),
+                        decoration: InputDecoration(
+                          hintText: 'Selecciona el estado',
+                          hintStyle: const TextStyle(
+                            fontSize: 17,
+                            color: Colors.black38,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFE0E0E0),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: primary,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 16,
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 32),
 
                       Row(
@@ -139,10 +196,13 @@ class _CategoryCreateScreenState extends State<CategoryCreateScreen> {
                             child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  final data = {'name': _nameController.text.trim()};
+                                  final data = {
+                                    'name': _nameController.text.trim(),
+                                    'status': _status,
+                                  };
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text('Categoría creada exitosamente'),
+                                      content: Text('Salsa actualizada exitosamente'),
                                       backgroundColor: Colors.green,
                                     ),
                                   );

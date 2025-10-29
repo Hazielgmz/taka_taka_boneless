@@ -65,13 +65,15 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
                 
-                // Dashboard Option
+
+                
+                // Cash Register Option
                 _buildMenuItem(
                   context: context,
-                  icon: Icons.dashboard,
-                  title: 'Dashboard',
+                  icon: Icons.point_of_sale,
+                  title: 'Caja',
                   onTap: () {
-                    Navigator.pushNamed(context, '/dashboard');
+                    Navigator.pushNamed(context, '/cash-register-password');
                   },
                 ),
                 const SizedBox(height: 16),
@@ -82,7 +84,7 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.admin_panel_settings,
                   title: 'Administración',
                   onTap: () {
-                    Navigator.pushNamed(context, '/administration');
+                    Navigator.pushNamed(context, '/password');
                   },
                 ),
                 const SizedBox(height: 16),
@@ -155,7 +157,7 @@ class SettingsScreen extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               blurRadius: 16,
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               offset: const Offset(0, 4),
             ),
           ],
